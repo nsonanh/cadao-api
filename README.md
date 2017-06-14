@@ -25,3 +25,8 @@ DOC:
 - design diagrams
 - api
 - js
+
+Research:
+- Test framework
+- CI tool
+- npm deployment
