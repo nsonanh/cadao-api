@@ -30,4 +30,5 @@ Research:
 - Test framework
 - CI tool
 - npm deployment
-- data contribution
+- Data contribution
+- Avoid redundancy/duplication of quotes
