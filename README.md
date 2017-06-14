@@ -12,7 +12,7 @@ Architecture:
 Specification:
 - One quote, many languages (profile & google translate ?)
 - Support latin & latin quotes
-- quote <-> author <-> category
+- quote <-> author <-> category <-> original language
 
 Dev Ops
 - Cloud deployment (AWS ?)
@@ -30,3 +30,4 @@ Research:
 - Test framework
 - CI tool
 - npm deployment
+- data contribution
