@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 8080;        // set our port
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://localhost/danhngon-db'); //connect to database
+mongoose.connect('mongodb://admin:admin@ds030500.mlab.com:30500/danhngon-api'); //connect to database
 
 var Danhngon = require('./app/models/danhngon');
 
