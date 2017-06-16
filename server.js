@@ -8,6 +8,10 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
+// call google-translate packages
+var googleCloudAPIKey = 'your API key here';
+var googleTranslate = require('google-translate')(googleAPIKey);  // google-translate
+
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -47,7 +51,10 @@ router.route('/danhngon')
     .post(function(req, res) {
 
         var danhngon = new Danhngon();  // create a new instance of the Danhngon model
-        danhngon.content = req.body.content;  // set the danhngon content (comes from the request)
+        var bodyContent = req.body;
+        danhngon.content = bodyContent.content;  // set the danhngon content (comes from the request)
+        danhngon.author = bodyContent.author;
+        danhngon.language = bodyContent.language;
 
         // save the danhngon and check for errors
         danhngon.save(function(err) {
@@ -75,17 +82,49 @@ router.route('/danhngon/random')
 
     // get the random danhngon (accessed at GET http://localhost:8080/api/danhngon/random)
     .get(function(req, res) {
-        Danhngon.count().exec(function(err, count){
-
+        var lang = req.params.translatedlanguage;
+        Danhngon.count().exec(function(err, count) {
             var random = Math.floor(Math.random() * count);
 
             Danhngon.findOne().skip(random).exec(
                 function (err, danhngon) {
-                    if (err)
+                    if (err) {
                         res.send(err);
-
+                    }
                     res.json(danhngon);
-                });
+            });
+        });
+    });
+
+// on routes that end in /danhngon/random
+// ----------------------------------------------------
+router.route('/danhngon/random/:translatedlanguage')
+
+    // get the random danhngon (accessed at GET http://localhost:8080/api/danhngon/random)
+    .get(function(req, res) {
+        var lang = req.params.translatedlanguage;
+        Danhngon.count().exec(function(err, count) {
+            var random = Math.floor(Math.random() * count);
+            Danhngon.findOne().skip(random).exec(function (err, danhngon) {
+                if (err) {
+                    res.send(err);
+                }
+                if (!lang || lang === danhngon.language) {
+                    res.json(danhngon);
+                } else {
+                    if (lang === "auto") {
+                        var langs = req.headers["accept-language"];
+                        lang = langs.substring(0, 2);
+                    }
+                    googleTranslate.translate(danhngon.content, danhngon.language, lang, function(err2, translation) {
+                        if (err2) {
+                            res.send(err2)
+                        }
+                        danhngon.content = translation.translatedText;
+                        res.json(danhngon);
+                    });
+                }
+            });
         });
     });
 
@@ -133,6 +172,36 @@ router.route('/danhngon/:danhngon_id')
                 res.send(err);
 
             res.json({ message: 'Successfully deleted' });
+        });
+    });
+
+// on routes that end in /danhngon/:danhngon_id/:translatedlanguage
+// ----------------------------------------------------
+router.route('/danhngon/:danhngon_id/:translatedlanguage')
+
+    // get the danhngon with that id
+    // (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id/:translatedlanguage)
+    .get(function(req, res) {
+        var lang = req.params.translatedlanguage;
+        Danhngon.findById(req.params.danhngon_id).exec(function (err, danhngon) {
+            if (err) {
+                res.send(err);
+            }
+            if (!lang || lang === danhngon.language) {
+                res.json(danhngon);
+            } else {
+                if (lang === "auto") {
+                    var langs = req.headers["accept-language"];
+                    lang = langs.substring(0, 2);
+                }
+                googleTranslate.translate(danhngon.content, danhngon.language, lang, function(err2, translation) {
+                    if (err2) {
+                        res.send(err2)
+                    }
+                    danhngon.content = translation.translatedText;
+                    res.json(danhngon);
+                });
+            }
         });
     });
 
