@@ -1,6 +1,7 @@
 # danhngon-api
 [![Documentation Status](https://readthedocs.org/projects/cadao-api/badge/?version=latest)](http://cadao-api.readthedocs.io/en/latest/?badge=latest)
 
+[![Documentation Status](https://circleci.com/gh/:owner/:repo.png?circle-token=:circle-token)](http://cadao-api.readthedocs.io/en/latest/?badge=latest)
 
 Brain storm:
 
