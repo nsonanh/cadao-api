@@ -4,24 +4,33 @@
 // =============================================================================
 
 // call the packages we need
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
-var bodyParser = require('body-parser');
+let express     = require('express');        // call express
+let app         = express();                 // define our app using express
+let bodyParser  = require('body-parser');
+let morgan      = require('morgan');
+let config      = require('config'); //we load the db location from the JSON files
+
 
 // CALL LOCAL LIBRARIES
 // call lang to get accepted language from request
-var requestHandler  = require('./lib/request-handler')
+let requestHandler  = require('./lib/request-handler')
+
+//don't show the log when it is test
+if(config.util.getEnv('NODE_ENV') !== 'test') {
+    //use morgan to log at command line
+    app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
+}
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;        // set our port
+let port = process.env.PORT || 8080;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
-var router = express.Router();              // get an instance of the express Router
+let router = express.Router();              // get an instance of the express Router
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
@@ -107,3 +116,6 @@ app.use('/api', router);
 // =============================================================================
 app.listen(port);
 console.log('Magic happens on port ' + port);
+
+// For tests
+module.exports = app;
