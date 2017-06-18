@@ -117,7 +117,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/api/danhngon/:danhngon_id/:language",
-    "title": "Find a random translated danhngon",
+    "title": "Find a translated danhngon with id",
     "version": "1.0.0",
     "group": "Danhngon",
     "parameter": {
