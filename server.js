@@ -268,7 +268,7 @@ router.route('/danhngon/:danhngon_id/:translatedlanguage')
     // (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id/:translatedlanguage)
     // get the translated danhngon (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id/:translatedlanguage)
     /**
-     * @api {get} /api/danhngon/:danhngon_id/:language Find a random translated danhngon
+     * @api {get} /api/danhngon/:danhngon_id/:language Find a translated danhngon with id
      * @apiVersion 1.0.0
      * @apiGroup Danhngon
      * @apiParam {Number} id danhngon id
