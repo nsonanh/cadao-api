@@ -156,7 +156,7 @@ router.route('/danhngon/random/:translatedlanguage')
      * @api {get} /api/danhngon/random/:language Find a random translated danhngon
      * @apiVersion 1.0.0
      * @apiGroup Danhngon
-     * @apiParam {String} language language to translate to (in ISO code e.g. "vi")
+     * @apiParam {String} language language to translate to (in ISO code e.g. "vi"). If "auto", browser's language will be used.
      * @apiSuccess {Number} danhngon._id danhngon id
      * @apiSuccess {String} danhngon.content danhngon content
      * @apiSuccess {String} danhngon.author danhngon author
@@ -266,6 +266,32 @@ router.route('/danhngon/:danhngon_id/:translatedlanguage')
 
     // get the danhngon with that id
     // (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id/:translatedlanguage)
+    // get the translated danhngon (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id/:translatedlanguage)
+    /**
+     * @api {get} /api/danhngon/:danhngon_id/:language Find a random translated danhngon
+     * @apiVersion 1.0.0
+     * @apiGroup Danhngon
+     * @apiParam {Number} id danhngon id
+     * @apiParam {String} language language to translate to (in ISO code e.g. "vi"). If "auto", browser's language will be used.
+     * @apiSuccess {Number} danhngon._id danhngon id
+     * @apiSuccess {String} danhngon.content danhngon content
+     * @apiSuccess {String} danhngon.author danhngon author
+     * @apiSuccess {String} danhngon.language danhngon language
+     * @apiSuccess {Date} danhngon.created_at Register's date
+     * @apiSuccessExample {json} Success
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "_id": 594634907c371c3e209e3446,
+     *      "content": "Một nụ cười là sự chào đón phổ quát.",
+     *      "author": "Max Eastman",
+     *      "language": "en",
+     *      "created_at": "2017-06-18T08:06:40.926Z"
+     *    }
+     * @apiErrorExample {json} danhngon not found
+     *    HTTP/1.1 404 Not Found
+     * @apiErrorExample {json} Find error
+     *    HTTP/1.1 500 Internal Server Error
+     */
     .get(function(req, res) {
         requestHandler.handleGetWithIDAndLang(req, res);
     });
