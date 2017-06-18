@@ -1,3 +1,3 @@
 {
-    "DBHost": "mongodb://localhost/danhngon-db"
+    "DBHost": "mongodb://admin:admin@ds030500.mlab.com:30500/danhngon-api"
 }

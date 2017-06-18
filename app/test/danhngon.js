@@ -22,22 +22,6 @@ describe('Danhngon', () => {
     });
 
     /*
-    * Test the /GET route
-    */
-    describe('/GET danhngon', () => {
-        it('it should GET all the danhngon', (done) => {
-        chai.request(server)
-            .get('/api/danhngon')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('array');
-                res.body.length.should.be.eql(0);
-                done();
-            });
-        });
-    });
-
-    /*
     * Test the /POST route
     */
     describe('/POST danhngon', () => {
@@ -80,29 +64,6 @@ describe('Danhngon', () => {
     });
 
     /*
-    * Test the /GET/:id route
-    */
-    describe('/GET/:id danhngon', () => {
-        it('it should GET a danhngon by the given id', (done) => {
-            let newDanhngon = new Danhngon({ content: "Lies have many variations, truth has none", author: "African proverb", language: "en"});
-            newDanhngon.save(function(err, danhngon) {
-                chai.request(server)
-                .get('/api/danhngon/' + danhngon.id)
-                .send(danhngon)
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('content');
-                    res.body.should.have.property('author');
-                    res.body.should.have.property('language');
-                    res.body.should.have.property('_id').eql(danhngon.id);
-                    done();
-                });
-            });
-        });
-    });
-
-    /*
     * Test the /PUT/:id route
     */
     describe('/PUT/:id danhngon', () => {
@@ -136,6 +97,114 @@ describe('Danhngon', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('message').eql('Danhngon successfully deleted!');
+                    done();
+                });
+            });
+        });
+    });
+
+    /*
+    * Test the /GET route
+    */
+    describe('/GET danhngon', () => {
+        it('it should GET all the danhngon', (done) => {
+        chai.request(server)
+            .get('/api/danhngon')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+                done();
+            });
+        });
+    });
+
+    /*
+    * Test the /GET/api/danhngon/:id route
+    */
+    describe('/GET/api/danhngon/:id danhngon', () => {
+        it('it should GET a danhngon by the given id', (done) => {
+            let newDanhngon = new Danhngon({ content: "Lies have many variations, truth has none", author: "African proverb", language: "en"});
+            newDanhngon.save(function(err, danhngon) {
+                chai.request(server)
+                .get('/api/danhngon/' + danhngon.id)
+                .send(danhngon)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('content');
+                    res.body.should.have.property('author');
+                    res.body.should.have.property('language');
+                    res.body.should.have.property('_id').eql(danhngon.id);
+                    done();
+                });
+            });
+        });
+    });
+
+    /*
+    * Test the /GET/api/danhngon/:id/:lang route
+    */
+    describe('/GET/api/danhngon/:id/:lang danhngon', () => {
+        it('it should GET a danhngon by the given id and translate to specified language', (done) => {
+            let newDanhngon = new Danhngon({ content: "one two three", author: "test author", language: "en"});
+            newDanhngon.save(function(err, danhngon) {
+                chai.request(server)
+                .get('/api/danhngon/' + danhngon.id + '/vi')
+                .send(danhngon)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('content').eql("một hai ba");
+                    res.body.should.have.property('author');
+                    res.body.should.have.property('language');
+                    res.body.should.have.property('_id').eql(danhngon.id);
+                    done();
+                });
+            });
+        });
+    });
+
+    /*
+    * Test the /GET/api/danhngon/random route
+    */
+    describe('/GET/api/danhngon/random danhngon', () => {
+        it('it should GET a danhngon by random', (done) => {
+            let newDanhngon = new Danhngon({ content: "Lies have many variations, truth has none", author: "African proverb", language: "en"});
+            newDanhngon.save(function(err, danhngon) {
+                chai.request(server)
+                .get('/api/danhngon/random')
+                .send(danhngon)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('content');
+                    res.body.should.have.property('author');
+                    res.body.should.have.property('language');
+                    res.body.should.have.property('_id').eql(danhngon.id);
+                    done();
+                });
+            });
+        });
+    });
+
+    /*
+    * Test the /GET/api/danhngon/random route and translate
+    */
+    describe('/GET/api/danhngon/random/:lang danhngon', () => {
+        it('it should GET a danhngon by random and translate', (done) => {
+            let newDanhngon = new Danhngon({ content: "one two three", author: "test author", language: "en"});
+            newDanhngon.save(function(err, danhngon) {
+                chai.request(server)
+                .get('/api/danhngon/random/vi')
+                .send(danhngon)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('content').eql("một hai ba");
+                    res.body.should.have.property('author');
+                    res.body.should.have.property('language');
+                    res.body.should.have.property('_id').eql(danhngon.id);
                     done();
                 });
             });
