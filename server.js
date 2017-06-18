@@ -252,7 +252,7 @@ router.route('/danhngon/:danhngon_id')
      * @apiGroup Danhngon
      * @apiParam {id} _id danhngon id
      * @apiSuccessExample {json} Success
-     *    HTTP/1.1 204 No Content
+     *    HTTP/1.1 200 OK
      * @apiErrorExample {json} Delete error
      *    HTTP/1.1 500 Internal Server Error
      */
