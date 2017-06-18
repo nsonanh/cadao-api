@@ -1,5 +1,5 @@
 # danhngon-api
-[![Documentation Status](https://readthedocs.org/projects/cadao-api/badge/?version=latest)](http://cadao-api.readthedocs.io/en/latest/?badge=latest) [![CircleCI](https://circleci.com/gh/nsonanh/danhngon-api/tree/master.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/nsonanh/danhngon-api/tree/master)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0) [![Documentation Status](https://readthedocs.org/projects/cadao-api/badge/?version=latest)](http://cadao-api.readthedocs.io/en/latest/?badge=latest) [![CircleCI](https://circleci.com/gh/nsonanh/danhngon-api/tree/master.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/nsonanh/danhngon-api/tree/master)
 
 Brain storm:
 
