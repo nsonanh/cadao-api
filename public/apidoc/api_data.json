@@ -22,13 +22,18 @@
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 200 OK",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"danhngon successfully deleted!\"\n}",
           "type": "json"
         }
       ]
     },
     "error": {
       "examples": [
+        {
+          "title": "danhngon not found",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"error: can't find danhngon by id.\"\n}",
+          "type": "json"
+        },
         {
           "title": "Delete error",
           "content": "HTTP/1.1 500 Internal Server Error",
@@ -192,7 +197,12 @@
       "examples": [
         {
           "title": "danhngon not found",
-          "content": "HTTP/1.1 404 Not Found",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"error: can't find danhngon by id.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "cannot translate danhngon",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"error: cannot translate with language code: :language.\"\n}",
           "type": "json"
         },
         {
@@ -277,7 +287,7 @@
       "examples": [
         {
           "title": "danhngon not found",
-          "content": "HTTP/1.1 404 Not Found",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"error: can't find danhngon by id.\"\n}",
           "type": "json"
         },
         {
@@ -349,7 +359,7 @@
       "examples": [
         {
           "title": "danhngon not found",
-          "content": "HTTP/1.1 404 Not Found",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"error: can't find random danhngon.\"\n}",
           "type": "json"
         },
         {
@@ -433,8 +443,8 @@
     "error": {
       "examples": [
         {
-          "title": "danhngon not found",
-          "content": "HTTP/1.1 404 Not Found",
+          "title": "cannot translate danhngon",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"error: cannot translate with language code: :language.\"\n}",
           "type": "json"
         },
         {
@@ -607,6 +617,16 @@
     },
     "error": {
       "examples": [
+        {
+          "title": "lack param",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"Invalid input, please enter params: content, author and original language.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "danhngon not found",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"error: can't find danhngon by id.\"\n}",
+          "type": "json"
+        },
         {
           "title": "Register error",
           "content": "HTTP/1.1 500 Internal Server Error",

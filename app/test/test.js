@@ -36,9 +36,7 @@ describe('Danhngon', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                    res.body.should.have.property('errors');
-                    res.body.errors.should.have.property('content');
-                    res.body.errors.content.should.have.property('kind').eql('required');
+                    res.body.should.have.property('message').eql("error: invalid input, please enter params: content, author and original language.");
                     done();
                 });
         });
@@ -54,7 +52,7 @@ describe('Danhngon', () => {
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('Danhngon created!');
+                res.body.should.have.property('message').eql('danhngon created!');
                 res.body.danhngon.should.have.property('content');
                 res.body.danhngon.should.have.property('author');
                 res.body.danhngon.should.have.property('language');
@@ -85,6 +83,26 @@ describe('Danhngon', () => {
     });
 
     /*
+    * Test the /PUT/:id route
+    */
+    describe('/PUT/:id danhngon', () => {
+        it('it should UPDATE a danhngon given the id', (done) => {
+            let danhngon = new Danhngon({ content: "Lies have many variations, truth has none", author: "African proverb", language: "en"})
+            danhngon.save(function(err, danhngon) {
+                chai.request(server)
+                .put('/api/danhngon/' + danhngon.id)
+                .send({ content: "Lies have many variations, truth has none", author: "African proverb" })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql("error: invalid input, please enter params: content, author and original language.");
+                    done();
+                });
+            });
+        });
+    });
+
+    /*
     * Test the /DELETE/:id route
     */
     describe('/DELETE/:id danhngon', () => {
@@ -96,7 +114,7 @@ describe('Danhngon', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                    res.body.should.have.property('message').eql('Danhngon successfully deleted!');
+                    res.body.should.have.property('message').eql('danhngon successfully deleted!');
                     done();
                 });
             });
