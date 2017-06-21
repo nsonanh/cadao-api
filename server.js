@@ -139,7 +139,10 @@ router.route('/danhngon/random')
      *      "created_at": "2017-06-18T08:06:40.926Z"
      *    }
      * @apiErrorExample {json} danhngon not found
-     *    HTTP/1.1 404 Not Found
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "error: can't find random danhngon."
+     *    }
      * @apiErrorExample {json} Find error
      *    HTTP/1.1 500 Internal Server Error
      */
@@ -171,8 +174,11 @@ router.route('/danhngon/random/:translatedlanguage')
      *      "language": "en",
      *      "created_at": "2017-06-18T08:06:40.926Z"
      *    }
-     * @apiErrorExample {json} danhngon not found
-     *    HTTP/1.1 404 Not Found
+     * @apiErrorExample {json} cannot translate danhngon
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "error: cannot translate with language code: :language."
+     *    }
      * @apiErrorExample {json} Find error
      *    HTTP/1.1 500 Internal Server Error
      */
@@ -205,7 +211,10 @@ router.route('/danhngon/:danhngon_id')
      *      "created_at": "2017-06-18T08:06:40.926Z"
      *    }
      * @apiErrorExample {json} danhngon not found
-     *    HTTP/1.1 404 Not Found
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "error: can't find danhngon by id."
+     *    }
      * @apiErrorExample {json} Find error
      *    HTTP/1.1 500 Internal Server Error
      */
@@ -238,6 +247,16 @@ router.route('/danhngon/:danhngon_id')
      *      "language": "en",
      *      "created_at": "2017-06-18T08:06:40.926Z"
      *    }
+     * @apiErrorExample {json} lack param
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "Invalid input, please enter params: content, author and original language."
+     *    }
+     * @apiErrorExample {json} danhngon not found
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "error: can't find danhngon by id."
+     *    }
      * @apiErrorExample {json} Register error
      *    HTTP/1.1 500 Internal Server Error
      */
@@ -253,6 +272,14 @@ router.route('/danhngon/:danhngon_id')
      * @apiParam {id} _id danhngon id
      * @apiSuccessExample {json} Success
      *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "danhngon successfully deleted!"
+     *    }
+     * @apiErrorExample {json} danhngon not found
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "error: can't find danhngon by id."
+     *    }
      * @apiErrorExample {json} Delete error
      *    HTTP/1.1 500 Internal Server Error
      */
@@ -288,7 +315,15 @@ router.route('/danhngon/:danhngon_id/:translatedlanguage')
      *      "created_at": "2017-06-18T08:06:40.926Z"
      *    }
      * @apiErrorExample {json} danhngon not found
-     *    HTTP/1.1 404 Not Found
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "error: can't find danhngon by id."
+     *    }
+     * @apiErrorExample {json} cannot translate danhngon
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "error: cannot translate with language code: :language."
+     *    }
      * @apiErrorExample {json} Find error
      *    HTTP/1.1 500 Internal Server Error
      */
