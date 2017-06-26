@@ -17,7 +17,13 @@ describe('Danhngon', () => {
 
     beforeEach((done) => { //Before each test we empty the database
         Danhngon.remove({}, (err) => { 
-           done();         
+           done();
+        });     
+    });
+
+    after((done) => { //After all tests we empty the database
+        Danhngon.remove({}, (err) => { 
+           done();
         });     
     });
 
@@ -228,4 +234,37 @@ describe('Danhngon', () => {
             });
         });
     });
+
+    /*
+    * Test the /GET/api/language/:language route and return all danhngon in :language
+    */
+    describe('/GET/api/danhngon/language/:lang danhngon', () => {
+        it('it should GET all danhngon by language', (done) => {
+            let newDanhngon = new Danhngon({ content: "one two three", author: "test author", language: "en"});
+            newDanhngon.save(function(err, danhngon) {
+                if (err) {
+                    assert.fail(0, 1, 'Could not save danhngon');
+                }
+            });
+
+            let newDanhngon2 = new Danhngon({ content: "một hai ba", author: "test author", language: "vi"});
+            newDanhngon2.save(function(err, danhngon) {
+                chai.request(server)
+                .get('/api/danhngon/language/vi')
+                .send(danhngon)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(1);
+                    res.body[0].should.be.a('object');
+                    res.body[0].should.have.property('content').eql("một hai ba");
+                    res.body[0].should.have.property('author');
+                    res.body[0].should.have.property('language');
+                    res.body[0].should.have.property('_id').eql(danhngon.id);
+                    done();
+                });
+            });
+        });
+    });
+
 });

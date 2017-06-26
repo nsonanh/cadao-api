@@ -152,7 +152,7 @@ router.route('/danhngon/random')
 
 // on routes that end in /danhngon/random/:tramslatedLanguage
 // ----------------------------------------------------
-router.route('/danhngon/random/:translatedlanguage')
+router.route('/danhngon/random/:language')
 
     // get the random translated danhngon (accessed at GET http://localhost:8080/api/danhngon/random)
     /**
@@ -185,6 +185,42 @@ router.route('/danhngon/random/:translatedlanguage')
     .get(function(req, res) {
         requestHandler.handleGetRandomWithLang(req, res);
     });
+
+// on routes that end in /danhngon/:language
+// ----------------------------------------------------
+router.route('/danhngon/language/:language')
+
+    // get the danhngon with that language (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id)
+    /**
+     * @api {get} /api/danhngon/:language Find a danhngon with language
+     * @apiVersion 1.0.0
+     * @apiGroup Danhngon
+     * @apiParam {String} language danhngon language (in ISO code)
+     * @apiSuccess {Number} danhngon._id danhngon id
+     * @apiSuccess {String} danhngon.content danhngon content
+     * @apiSuccess {String} danhngon.author danhngon author
+     * @apiSuccess {String} danhngon.language danhngon language
+     * @apiSuccess {Date} danhngon.created_at Register's date
+     * @apiSuccessExample {json} Success
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "_id": 594634907c371c3e209e3446,
+     *      "content": "A smile is the universal welcome.",
+     *      "author": "Max Eastman",
+     *      "language": "en",
+     *      "created_at": "2017-06-18T08:06:40.926Z"
+     *    }
+     * @apiErrorExample {json} danhngon not found
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "error: can't find danhngon by language."
+     *    }
+     * @apiErrorExample {json} Find error
+     *    HTTP/1.1 500 Internal Server Error
+     */
+    .get(function(req, res) {
+        requestHandler.handleGetWithLanguage(req, res);
+    })
 
 // on routes that end in /danhngon/:danhngon_id
 // ----------------------------------------------------
@@ -287,13 +323,13 @@ router.route('/danhngon/:danhngon_id')
         requestHandler.handleDelete(req, res);
     });
 
-// on routes that end in /danhngon/:danhngon_id/:translatedlanguage
+// on routes that end in /danhngon/:danhngon_id/:language
 // ----------------------------------------------------
-router.route('/danhngon/:danhngon_id/:translatedlanguage')
+router.route('/danhngon/:danhngon_id/:language')
 
     // get the danhngon with that id
-    // (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id/:translatedlanguage)
-    // get the translated danhngon (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id/:translatedlanguage)
+    // (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id/:language)
+    // get the translated danhngon (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id/:language)
     /**
      * @api {get} /api/danhngon/:danhngon_id/:language Find a translated danhngon with id
      * @apiVersion 1.0.0

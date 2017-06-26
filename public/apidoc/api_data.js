@@ -303,6 +303,91 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/danhngon/:language",
+    "title": "Find a danhngon with language",
+    "version": "1.0.0",
+    "group": "Danhngon",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>danhngon language (in ISO code)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "danhngon._id",
+            "description": "<p>danhngon id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "danhngon.content",
+            "description": "<p>danhngon content</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "danhngon.author",
+            "description": "<p>danhngon author</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "danhngon.language",
+            "description": "<p>danhngon language</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "danhngon.created_at",
+            "description": "<p>Register's date</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"_id\": 594634907c371c3e209e3446,\n  \"content\": \"A smile is the universal welcome.\",\n  \"author\": \"Max Eastman\",\n  \"language\": \"en\",\n  \"created_at\": \"2017-06-18T08:06:40.926Z\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "danhngon not found",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"error: can't find danhngon by language.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Find error",
+          "content": "HTTP/1.1 500 Internal Server Error",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./server.js",
+    "groupTitle": "Danhngon",
+    "name": "GetApiDanhngonLanguage"
+  },
+  {
+    "type": "get",
     "url": "/api/danhngon/random",
     "title": "Find a random danhngon",
     "version": "1.0.0",
