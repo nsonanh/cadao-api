@@ -267,4 +267,36 @@ describe('Danhngon', () => {
         });
     });
 
+    /*
+    * Test the /GET/api/author/:author route and return all danhngon from :author
+    */
+    describe('/GET/api/danhngon/author/:author danhngon', () => {
+        it('it should GET all danhngon from author', (done) => {
+            let newDanhngon = new Danhngon({ content: "one two three", author: "test author1", language: "en"});
+            newDanhngon.save(function(err, danhngon) {
+                if (err) {
+                    assert.fail(0, 1, 'Could not save danhngon');
+                }
+            });
+
+            let newDanhngon2 = new Danhngon({ content: "một hai ba", author: "test author2", language: "vi"});
+            newDanhngon2.save(function(err, danhngon) {
+                chai.request(server)
+                .get('/api/danhngon/author/test%20author2')
+                .send(danhngon)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(1);
+                    res.body[0].should.be.a('object');
+                    res.body[0].should.have.property('content').eql("một hai ba");
+                    res.body[0].should.have.property('author');
+                    res.body[0].should.have.property('language');
+                    res.body[0].should.have.property('_id').eql(danhngon.id);
+                    done();
+                });
+            });
+        });
+    });
+
 });

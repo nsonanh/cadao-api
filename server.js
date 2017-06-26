@@ -190,12 +190,12 @@ router.route('/danhngon/random/:language')
 // ----------------------------------------------------
 router.route('/danhngon/language/:language')
 
-    // get the danhngon with that language (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id)
+    // get the danhngon with that language (accessed at GET http://localhost:8080/api/danhngon/language/:language)
     /**
-     * @api {get} /api/danhngon/:language Find all danhngon with original language
+     * @api {get} /api/danhngon/language/:language Find all danhngon with original language
      * @apiVersion 1.0.0
      * @apiGroup Danhngon
-     * @apiParam {String} language danhngon language (in ISO code)
+     * @apiParam {String} language danhngon language (in ISO code. If "auto", browser's language will be used.)
      * @apiSuccess {Number} danhngon._id danhngon id
      * @apiSuccess {String} danhngon.content danhngon content
      * @apiSuccess {String} danhngon.author danhngon author
@@ -220,6 +220,42 @@ router.route('/danhngon/language/:language')
      */
     .get(function(req, res) {
         requestHandler.handleGetWithLanguage(req, res);
+    })
+
+// on routes that end in /danhngon/author/:author
+// ----------------------------------------------------
+router.route('/danhngon/author/:author')
+
+    // get the danhngon with that author (accessed at GET http://localhost:8080/api/danhngon/author/:author)
+    /**
+     * @api {get} /api/danhngon/author/:author Find all danhngon with author
+     * @apiVersion 1.0.0
+     * @apiGroup Danhngon
+     * @apiParam {String} author danhngon author
+     * @apiSuccess {Number} danhngon._id danhngon id
+     * @apiSuccess {String} danhngon.content danhngon content
+     * @apiSuccess {String} danhngon.author danhngon author
+     * @apiSuccess {String} danhngon.language danhngon language
+     * @apiSuccess {Date} danhngon.created_at Register's date
+     * @apiSuccessExample {json} Success
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "_id": 594634907c371c3e209e3446,
+     *      "content": "A smile is the universal welcome.",
+     *      "author": "Max Eastman",
+     *      "language": "en",
+     *      "created_at": "2017-06-18T08:06:40.926Z"
+     *    }
+     * @apiErrorExample {json} danhngon not found
+     *    HTTP/1.1 200 OK
+     *    {
+     *      "message": "error: can't find danhngon from author."
+     *    }
+     * @apiErrorExample {json} Find error
+     *    HTTP/1.1 500 Internal Server Error
+     */
+    .get(function(req, res) {
+        requestHandler.handleGetWithAuthor(req, res);
     })
 
 // on routes that end in /danhngon/:danhngon_id
