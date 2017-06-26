@@ -256,10 +256,11 @@ describe('Danhngon', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(1);
-                    res.body.should.have.property('content').eql("một hai ba");
-                    res.body.should.have.property('author');
-                    res.body.should.have.property('language');
-                    res.body.should.have.property('_id').eql(danhngon.id);
+                    res.body[0].should.be.a('object');
+                    res.body[0].should.have.property('content').eql("một hai ba");
+                    res.body[0].should.have.property('author');
+                    res.body[0].should.have.property('language');
+                    res.body[0].should.have.property('_id').eql(danhngon.id);
                     done();
                 });
             });
