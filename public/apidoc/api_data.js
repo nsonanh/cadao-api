@@ -304,7 +304,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/api/danhngon/:language",
-    "title": "Find a danhngon with language",
+    "title": "Find all danhngon with original language",
     "version": "1.0.0",
     "group": "Danhngon",
     "parameter": {

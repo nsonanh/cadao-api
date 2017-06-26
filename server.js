@@ -186,13 +186,13 @@ router.route('/danhngon/random/:language')
         requestHandler.handleGetRandomWithLang(req, res);
     });
 
-// on routes that end in /danhngon/:language
+// on routes that end in /danhngon/language/:language
 // ----------------------------------------------------
 router.route('/danhngon/language/:language')
 
     // get the danhngon with that language (accessed at GET http://localhost:8080/api/danhngon/:danhngon_id)
     /**
-     * @api {get} /api/danhngon/:language Find a danhngon with language
+     * @api {get} /api/danhngon/:language Find all danhngon with original language
      * @apiVersion 1.0.0
      * @apiGroup Danhngon
      * @apiParam {String} language danhngon language (in ISO code)
