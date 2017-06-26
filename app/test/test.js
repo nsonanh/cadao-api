@@ -236,7 +236,7 @@ describe('Danhngon', () => {
     });
 
     /*
-    * Test the /GET/api/danhngon/random route and translate
+    * Test the /GET/api/language/:language route and return all danhngon in :language
     */
     describe('/GET/api/danhngon/language/:lang danhngon', () => {
         it('it should GET all danhngon by language', (done) => {
@@ -247,14 +247,15 @@ describe('Danhngon', () => {
                 }
             });
 
-            let newDanhngon2 = new Danhngon({ content: "one two three", author: "test author", language: "vi"});
-            newDanhngon.save(function(err, danhngon) {
+            let newDanhngon2 = new Danhngon({ content: "một hai ba", author: "test author", language: "vi"});
+            newDanhngon2.save(function(err, danhngon) {
                 chai.request(server)
                 .get('/api/danhngon/language/vi')
                 .send(danhngon)
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('object');
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(1);
                     res.body.should.have.property('content').eql("một hai ba");
                     res.body.should.have.property('author');
                     res.body.should.have.property('language');
