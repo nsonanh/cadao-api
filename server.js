@@ -4,11 +4,12 @@
 // =============================================================================
 
 // call the packages we need
-let express     = require('express');        // call express
-let app         = express();                 // define our app using express
-let bodyParser  = require('body-parser');
-let morgan      = require('morgan');
-let config      = require('config'); //we load the db location from the JSON files
+let express     = require('express');       // call express
+let app         = express();                // define our app using express
+let cors        = require('./lib/cors');    // enable CORS
+let bodyParser  = require('body-parser');   // body parser
+let morgan      = require('morgan');        // tomcat styled log
+let config      = require('config');        // we load the db location from the JSON files
 
 // Serving static files from "public" folder
 app.use(express.static('public'));
@@ -34,12 +35,8 @@ let port = process.env.PORT || 8080;        // set our port
 // =============================================================================
 let router = express.Router();              // get an instance of the express Router
 
-// middleware to use for all requests
-router.use(function(req, res, next) {
-    // do logging
-    console.log('Something is happening.');
-    next(); // make sure we go to the next routes and don't stop here
-});
+// middleware to use for all requests - default: enable cors for GET
+router.use(cors());
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
