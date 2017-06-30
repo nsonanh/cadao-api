@@ -1,8 +1,9 @@
 # danhngon-api
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0) [![CircleCI](https://circleci.com/gh/nsonanh/danhngon-api/tree/master.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/nsonanh/danhngon-api/tree/master) [![Coverage Status](https://coveralls.io/repos/github/nsonanh/danhngon-api/badge.svg)](https://coveralls.io/github/nsonanh/danhngon-api)
 
-## API Documentation
+## API set
 ### [danhngon-api documentation](https://nsonanh.github.io/danhngon-api/public/apidoc/index.html)
+### [danhngon-js client library](https://github.com/nsonanh/danhngon-js)
 
 ## Brain storm:
 ### Basic visual:
