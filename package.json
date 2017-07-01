@@ -2,10 +2,12 @@
   "name": "danhngon-api",
   "main": "server.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "~1.17.2",
     "config": "^1.26.1",
     "express": "~4.15.3",
     "google-translate": "^2.0.5",
+    "jsonwebtoken": "^7.4.1",
     "mongoose": "~4.10.6",
     "morgan": "^1.8.2"
   },
