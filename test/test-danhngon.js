@@ -2,7 +2,8 @@
 process.env.NODE_ENV = 'test';
 
 let mongoose = require("mongoose");
-let Danhngon = require('../app/models/danhngon');
+let Danhngon = require('../api/models/danhngon');
+let User = require('../api/models/user');
 
 //Require the dev-dependencies
 let chai = require('chai');
@@ -10,21 +11,46 @@ let chaiHttp = require('chai-http');
 let server = require('../server');
 let should = chai.should();
 
+//Require the secret key
+let secret = require('../api/secret');
+
+//Require the jwt
+let jwt = require('jsonwebtoken');
+
 chai.use(chaiHttp);
 
+var testUser;
+
 //Our parent block
-describe('Danhngon', () => {
+describe('Danhngon', function() {
+    this.timeout(15000);
+
+    before((done) => {
+        let newUser = new User({ username: "testAccount", password: "testPassword", admin: true});
+        newUser.save(function(err, user) {
+            if (err) assert.fail(0, 1, 'Could not save test user');
+
+            testUser = newUser;
+            done();
+        });
+    });
 
     beforeEach((done) => { //Before each test we empty the database
         Danhngon.remove({}, (err) => { 
-           done();
-        });     
+            if (err) assert.fail(0, 1, 'Could not empty danhngon db');
+
+            done();
+        });
     });
 
     after((done) => { //After all tests we empty the database
         Danhngon.remove({}, (err) => { 
-           done();
-        });     
+            if (err) assert.fail(0, 1, 'Could not empty danhngon db');
+        });
+        User.remove({}, (err) => { 
+            if (err) assert.fail(0, 1, 'Could not empty user db');
+            done();
+        });
     });
 
     /*
@@ -38,6 +64,9 @@ describe('Danhngon', () => {
             }
             chai.request(server)
                 .post('/api/danhngon')
+                .set('x-access-token', jwt.sign(testUser, secret, {
+                    expiresIn: 10
+                }))
                 .send(danhngon)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -54,6 +83,9 @@ describe('Danhngon', () => {
         }
         chai.request(server)
             .post('/api/danhngon')
+            .set('x-access-token', jwt.sign(testUser, secret, {
+                expiresIn: 10
+            }))
             .send(danhngon)
             .end((err, res) => {
                 res.should.have.status(200);
@@ -76,6 +108,9 @@ describe('Danhngon', () => {
             danhngon.save(function(err, danhngon) {
                 chai.request(server)
                 .put('/api/danhngon/' + danhngon.id)
+                .set('x-access-token', jwt.sign(testUser, secret, {
+                    expiresIn: 10
+                }))
                 .send({ content: "Lies have many variations, truth has none", author: "African proverb", language: "te"})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -97,6 +132,9 @@ describe('Danhngon', () => {
             danhngon.save(function(err, danhngon) {
                 chai.request(server)
                 .put('/api/danhngon/' + danhngon.id)
+                .set('x-access-token', jwt.sign(testUser, secret, {
+                    expiresIn: 10
+                }))
                 .send({ content: "Lies have many variations, truth has none", author: "African proverb" })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -117,6 +155,9 @@ describe('Danhngon', () => {
         danhngon.save((err, danhngon) => {
                 chai.request(server)
                 .delete('/api/danhngon/' + danhngon.id)
+                .set('x-access-token', jwt.sign(testUser, secret, {
+                    expiresIn: 10
+                }))
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -298,5 +339,4 @@ describe('Danhngon', () => {
             });
         });
     });
-
 });

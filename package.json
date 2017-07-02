@@ -20,6 +20,6 @@
   },
   "scripts": {
     "start": "set NODE_ENV=dev && node server.js",
-    "test": "mocha ./test/test.js --reporter spec"
+    "test": "mocha ./test/*.js --reporter spec"
   }
 }
