@@ -9,11 +9,16 @@ router.route('/')
     // create a danhngon (accessed at POST http://localhost:8080/api/danhngon)
     /**
      * @api {post} /api/danhngon Register a new danhngon
+     * @apiHeader {String} x-access-token provided access token
      * @apiVersion 1.0.0
      * @apiGroup Danhngon
      * @apiParam {String} content danhngon content
      * @apiParam {String} author danhngon author
      * @apiParam {String} language danhngon language
+     * @apiHeaderExample {json} Header-Example:
+     *     {
+     *       "x-access-token": "your token"
+     *     }
      * @apiParamExample {json} Input
      *    {
      *      "content": "A smile is the universal welcome.",
@@ -250,12 +255,17 @@ router.route('/:danhngon_id')
     // update the danhngon with this id (accessed at PUT http://localhost:8080/api/danhngon/:danhngon_id)
     /**
      * @api {put} /api/danhngon/:id Update a danhngon
+     * @apiHeader {String} x-access-token provided access token
      * @apiVersion 1.0.0
      * @apiGroup Danhngon
      * @apiParam {id} _id danhngon id
      * @apiParam {String} content danhngon content
      * @apiParam {String} author danhngon author
      * @apiParam {String} language danhngon language
+     * @apiHeaderExample {json} Header-Example:
+     *     {
+     *       "x-access-token": "your token"
+     *     }
      * @apiParamExample {json} Input
      *    {
      *      "_id": 594634907c371c3e209e3446,
@@ -292,9 +302,14 @@ router.route('/:danhngon_id')
     // delete the danhngon with this id (accessed at DELETE http://localhost:8080/api/danhngon/:danhngon_id)
     /**
      * @api {delete} /api/danhngon/:id Remove a danhngon
+     * @apiHeader {String} x-access-token provided access token
      * @apiVersion 1.0.0
      * @apiGroup Danhngon
      * @apiParam {id} _id danhngon id
+     * @apiHeaderExample {json} Header-Example:
+     *     {
+     *       "x-access-token": "your token"
+     *     }
      * @apiSuccessExample {json} Success
      *    HTTP/1.1 200 OK
      *    {
