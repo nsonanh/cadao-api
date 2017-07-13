@@ -1,6 +1,6 @@
 let express         = require('express');       // call express
 let router          = express.Router();              // get an instance of the express Router
-let requestHandler  = require('../../lib/request-handler');
+let requestHandler  = require('../../lib/danhngon-request-handler');
 let verifyToken     = require('./verify-token');
 
 // on routes that end in /danhngon
